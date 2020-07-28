@@ -1,8 +1,9 @@
 package com.marketplace.api.adapter.rest;
 
+import com.marketplace.api.model.PropertiesResponse;
 import com.marketplace.api.service.ItemClient;
+import com.marketplace.api.service.ItemService;
 import com.marketplace.api.service.dto.ListRoot;
-import com.marketplace.api.service.dto.ListingDetailsDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/listing")
 public class ListingController {
 
-    private final ItemClient itemClient;
+    private final ItemService itemService;
 
-    public ListingController(ItemClient itemClient) {
-        this.itemClient = itemClient;
+    public ListingController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GetMapping
-    public ListRoot getResult(
+    public PropertiesResponse getResult(
             @RequestHeader("x-rapidapi-host") String host,
             @RequestHeader("x-rapidapi-key") String key) {
-        return itemClient.getListings(host, key);
+        return itemService.getProperties(host, key);
     }
 }
